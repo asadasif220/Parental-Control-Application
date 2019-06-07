@@ -40,8 +40,6 @@ public class ChildAppsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_child_apps);
 
 
-
-
         lvApps = findViewById(R.id.AppsListView);
         btnLock = findViewById(R.id.LockApp);
 
@@ -56,15 +54,40 @@ public class ChildAppsActivity extends AppCompatActivity {
 
                 for (int i = 0; i < appList.size(); i++) {
 
-                    if(appList.get(i).isLocked())
-                    {
+//                    if (appList.get(i).isLocked()) {
 
                         FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidhive-124c5.firebaseio.com/Users/Children").child(AfterChildClick.childID).child("Locked Apps").child(appList.get(i).getS_id()).setValue(appList.get(i));
 
-                    }
+//                    }
+
                 }
 
-                Toast.makeText(ChildAppsActivity.this, "App(s) Locked!", Toast.LENGTH_SHORT).show();
+
+//                FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidhive-124c5.firebaseio.com/Users/Children").child(AfterChildClick.childID).child("Locked Apps").child("57").child("locked").setValue(false);
+//
+//
+//                for (int j = 0; j < appList.size(); j++) {
+//
+//                    for (int k = 0; k < lockedApps.size(); k++) {
+//
+//
+//                        if (appList.get(j).getPackageName().equals(lockedApps.get(k).getPackageName())) {
+//
+//                            if ((!appList.get(j).isLocked()) && (lockedApps.get(k).isLocked())) {
+//
+//                                FirebaseDatabase.getInstance().getReferenceFromUrl("https://androidhive-124c5.firebaseio.com/Users/Children").child(AfterChildClick.childID).child("Locked Apps").child(appList.get(j).getS_id()).child("locked").setValue(false);
+//                                getAppList();
+//
+//                            }
+//                        }
+//
+//
+//                    }
+//
+//                }
+
+
+                Toast.makeText(ChildAppsActivity.this, "App(s) Locked|Unlocked", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -111,10 +134,9 @@ public class ChildAppsActivity extends AppCompatActivity {
                     childAppListModel.setS_id(dataSnapshot1.getKey());
 
 
-                    for (int i = 0; i <lockedApps.size() ; i++) {
+                    for (int i = 0; i < lockedApps.size(); i++) {
 
-                        if(childAppListModel.getS_id().equals(lockedApps.get(i).getS_id()))
-                        {
+                        if (childAppListModel.getS_id().equals(lockedApps.get(i).getS_id())) {
                             childAppListModel.setLocked(lockedApps.get(i).isLocked());
                         }
 
@@ -125,7 +147,7 @@ public class ChildAppsActivity extends AppCompatActivity {
                 }
 
 
-                AppListAdapter appListAdapter = new AppListAdapter(ChildAppsActivity.this,appList);
+                AppListAdapter appListAdapter = new AppListAdapter(ChildAppsActivity.this, appList);
                 lvApps.setAdapter(appListAdapter);
 
 

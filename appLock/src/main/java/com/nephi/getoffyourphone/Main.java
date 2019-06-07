@@ -182,7 +182,7 @@ public class Main extends AppCompatActivity {
             e.printStackTrace();
         }
         selection_all();
-        PreSelect();
+        //PreSelect();
         //Main Title text change
         if (db.get_Running(1).equals("N")) {
             title_timer.setText(getString(R.string.not_running));

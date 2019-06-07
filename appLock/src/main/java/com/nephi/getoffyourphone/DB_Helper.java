@@ -490,6 +490,24 @@ public class DB_Helper extends SQLiteOpenHelper {
 
     }
 
+    public static void delete_apps(apps apps) {
+        SQLiteDatabase db = Main.db.getWritableDatabase();
+
+        String selectQuery = "SELECT  * FROM " + TABLE_APPS + " Where " + KEY_PKG + "=?";
+
+        Cursor cursor = db.rawQuery(selectQuery, new String[]{apps.get_PKG()});
+
+        if (cursor.getCount() > 0) {
+
+
+            String where = KEY_PKG + "=?";
+            db.delete(TABLE_APPS, where, new String[]{apps.get_PKG()});
+
+            db.close();
+
+        }
+    }
+
     public static void lock_AllTimerData(String LockTime, String Running, int TimerFinish, String Hours, int Selected, String data) {
         SQLiteDatabase db = Main.db.getWritableDatabase();
 
@@ -536,8 +554,9 @@ public class DB_Helper extends SQLiteOpenHelper {
         if (cursor != null)
             cursor.moveToFirst();
 
-        apps contact = new apps(Integer.parseInt(cursor.getString(0)),
-                cursor.getString(1), cursor.getInt(2));
+            apps contact = new apps(Integer.parseInt(cursor.getString(0)),
+                    cursor.getString(1), cursor.getInt(2));
+
         // return App
         return contact;
     }

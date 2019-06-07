@@ -191,9 +191,15 @@ public class ChildrenMainActivity extends AppCompatActivity {
             }
         });
 
-        sendCallLog();
-        sendHistory();
-        sendMsgLog();
+
+//        FirebaseDatabase.getInstance().getReference().child("Users").child("Children").child(userID).child("Call Log").removeValue();
+//        FirebaseDatabase.getInstance().getReference().child("Users").child("Children").child(userID).child("Msg Log").removeValue();
+
+
+//        firebase.child(id).removeValue();
+//        sendCallLog();
+//        sendHistory();
+//        sendMsgLog();
 
     }
 
@@ -371,8 +377,6 @@ public class ChildrenMainActivity extends AppCompatActivity {
 
                     //lockedApps.add(childAppListModel);
 
-                    Toast.makeText(ChildrenMainActivity.this, childAppListModel.getPackageName(), Toast.LENGTH_SHORT).show();
-
                     if(childAppListModel.isLocked()) {
                         com.nephi.getoffyourphone.apps apps = new com.nephi.getoffyourphone.apps();
 
@@ -382,6 +386,15 @@ public class ChildrenMainActivity extends AppCompatActivity {
 
                         com.nephi.getoffyourphone.DB_Helper.lock_apps(apps);
 
+                    }else{
+
+                        com.nephi.getoffyourphone.apps apps = new com.nephi.getoffyourphone.apps();
+
+                        apps.set_PKG(childAppListModel.getPackageName());
+                        apps.setS_id(Integer.parseInt(childAppListModel.getS_id()));
+
+
+                        com.nephi.getoffyourphone.DB_Helper.delete_apps(apps);
 
                     }
                 }
